@@ -8,7 +8,7 @@ class Solution {
 
             while (num > 0) {
                 digits++;
-                num = num / 10;
+                num /=  10;
             }
 
             if (digits % 2 == 0) {
