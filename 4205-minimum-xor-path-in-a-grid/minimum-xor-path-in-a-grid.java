@@ -1,0 +1,32 @@
+class Solution {
+    public int minCost(int[][] grid) {
+      int m = grid.length, n = grid[0].length;
+
+        Set<Integer>[][] dp = new HashSet[m][n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                dp[i][j] = new HashSet<>();
+            }
+        }
+
+        dp[0][0].add(grid[0][0]);
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == 0 && j == 0) continue;
+
+                Set<Integer> prev = new HashSet<>();
+
+                if (i > 0) prev.addAll(dp[i - 1][j]);
+                if (j > 0) prev.addAll(dp[i][j - 1]);
+
+                for (int x : prev) {
+                    dp[i][j].add(x ^ grid[i][j]);
+                }
+            }
+        }
+
+        return Collections.min(dp[m - 1][n - 1]);
+    }
+}
